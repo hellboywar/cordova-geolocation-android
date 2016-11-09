@@ -22,7 +22,7 @@
         xmlns:rim="http://www.blackberry.com/ns/widgets"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="flexites-android-geolocation"
-        version="2.1.0">
+        version="2.1.1">
 
     <name>AndroidGeolocation</name>
     <description>Cordova Android Geolocation Plugin</description>
