@@ -32,9 +32,20 @@
 
     <asset src="www/AndroidGeolocation.js" target="plugins/AndroidGeolocation.js" />
 
-    <!-- android -->
-    <platform name="android">
+    <engines>
+        <engine name="cordova" version=">=2.7.0" />
+    </engines>
 
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="plugins">
+            <plugin name="Echo" value="org.flexites.plugin.Echo"/>
+        </config-file>
+
+        <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin" />
+    </platform>
+
+    <!-- android -->
+    <!--<platform name="android">
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -46,5 +57,5 @@
 
         <source-file src="src/android/Geolocation.java" target-dir="src/org/flexites/geolocation/" />
         <framework src="com.google.android.gms:play-services-gcm:9.0.2+"/>
-    </platform>
+    </platform>-->
 </plugin>
