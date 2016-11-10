@@ -45,6 +45,12 @@
             </feature>
         </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9MA-tt9dJBIIaVEgeBeJLmdsD20SZYDY" />
+        </config-file>
+
+        <framework src="com.google.android.gms:play-services-gcm:9.0.2+"/>
+
         <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
 
