@@ -17,12 +17,9 @@
   specific language governing permissions and limitations
   under the License.
 -->
-
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        xmlns:rim="http://www.blackberry.com/ns/widgets"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="flexites-android-geolocation"
-        version="2.1.1">
+        version="0.7.0">
 
     <name>AndroidGeolocation</name>
     <description>Cordova Android Geolocation Plugin</description>
@@ -30,29 +27,25 @@
     <keywords>cordova,geolocation</keywords>
     <repo>https://github.com/hellboywar/cordova-geolocation-android.git</repo>
 
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
+    <asset src="www/geolocation.js" target="js/geolocation.js"/>
+
+    <js-module src="www/geolocation.js" name="geo">
+        <clobbers target="geo" />
+    </js-module>
+
     <platform name="android">
-        <config-file target="config.xml" parent="/*">
+
+        <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Echo">
                 <param name="android-package" value="org.flexites.plugin.Echo"/>
             </feature>
         </config-file>
 
-        <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin" />
+        <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
 
-
-    <!-- android -->
-    <!--<platform name="android">
-        <config-file target="AndroidManifest.xml" parent="/*">
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-        </config-file>
-
-        <config-file target="res/xml/config.xml" parent="plugins">
-            <plugin name="Geolocation" value="org.flexites.plugin.Geolocation"/>
-        </config-file>
-
-        <source-file src="src/android/Geolocation.java" target-dir="src/org/flexites/geolocation/" />
-        <framework src="com.google.android.gms:play-services-gcm:9.0.2+"/>
-    </platform>-->
 </plugin>
