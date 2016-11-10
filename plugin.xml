@@ -30,19 +30,16 @@
     <keywords>cordova,geolocation</keywords>
     <repo>https://github.com/hellboywar/cordova-geolocation-android.git</repo>
 
-    <asset src="www/AndroidGeolocation.js" target="plugins/AndroidGeolocation.js" />
-
-    <engines>
-        <engine name="cordova" version=">=2.7.0" />
-    </engines>
-
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="plugins">
-            <plugin name="Echo" value="org.flexites.plugin.Echo"/>
+        <config-file target="config.xml" parent="/*">
+            <feature name="Echo">
+                <param name="android-package" value="org.flexites.plugin.Echo"/>
+            </feature>
         </config-file>
 
         <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin" />
     </platform>
+
 
     <!-- android -->
     <!--<platform name="android">
