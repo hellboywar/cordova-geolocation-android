@@ -19,7 +19,7 @@
 -->
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="flexites-android-geolocation"
-        version="0.7.0">
+        version="0.9.0">
 
     <name>AndroidGeolocation</name>
     <description>Cordova Android Geolocation Plugin</description>
@@ -40,18 +40,18 @@
     <platform name="android">
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Echo">
-                <param name="android-package" value="org.flexites.plugin.Echo"/>
+            <feature name="Geolocation">
+                <param name="android-package" value="org.flexites.plugin.Geolocation"/>
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9MA-tt9dJBIIaVEgeBeJLmdsD20SZYDY" />
+            <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBrhDeCzIK4-ahcdN_rt6myGPf48zPn6LU" />
         </config-file>
 
-        <framework src="com.google.android.gms:play-services:9.4.0"/>
+        <framework src="com.google.android.gms:play-services:9.2.0"/>
 
-        <source-file src="src/android/Echo.java" target-dir="src/org/flexites/plugin/"/>
+        <source-file src="src/android/Geolocation.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
 
 </plugin>

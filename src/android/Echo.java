@@ -1,82 +1,87 @@
 package org.flexites.plugin;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.location.Location;
+import android.util.Log;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+public class Geolocation extends CordovaPlugin implements LocationProvider.LocationCallback {
 
-/**
- * This class echoes a string called from JavaScript.
- */
-public class Echo extends CordovaPlugin implements
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
-
-    private static GoogleApiClient mGoogleApiClient;
-    private static final String LOG_TAG = "GeoPlugin";
-    private static CallbackContext geoContext;
-//    private static CordovaWebView gWebView;
-//    private static Bundle gCachedExtras = null;
-//    private static boolean gForeground = false;
+    private static final String TAG = "FlexitesGeolocationPlugin";
+    private LocationProvider mLocationProvider;
+    private Location mLastLocation;
 
     /**
      * Gets the application context from cordova's main activity.
      * @return the application context
      */
     private Context getApplicationContext() {
-        return this.cordova.getActivity().getApplicationContext();
+        return this.cordova.getActivity();
     }
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("echo")) {
-            geoContext = callbackContext;
-//            String message = args.getString(0);
-//            this.echo(message, callbackContext);
-            Context appContext = getApplicationContext();
-            mGoogleApiClient = new GoogleApiClient.Builder(appContext)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
+    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+        if (action.equals("addWatch")) {
+            if (mLocationProvider == null) {
+                final LocationProvider.LocationCallback cb = this;
+                cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        Log.i(TAG, "initing location provider");
+                        mLocationProvider = new LocationProvider(getApplicationContext(), cb);
+                        PluginResult r = new PluginResult(PluginResult.Status.OK);
+                        callbackContext.sendPluginResult(r);
+                    }
+                });
+            } else {
+                mLocationProvider.connect();
+                PluginResult r = new PluginResult(PluginResult.Status.OK);
+                callbackContext.sendPluginResult(r);
+            }
+            return true;
+        } else if (action.equals("clearWatch")) {
+            PluginResult r;
+            if (mLocationProvider != null) {
+                mLocationProvider.disconnect();
+                r = new PluginResult(PluginResult.Status.OK);
+            } else
+                r = new PluginResult(PluginResult.Status.ERROR);
+            callbackContext.sendPluginResult(r);
+            return true;
+        } else if (action.equals("getLocation")) {
+            if (mLastLocation != null) {
+                JSONObject result = new JSONObject();
+                result.put("latitude", mLastLocation.getLatitude());
+                result.put("longitude", mLastLocation.getLongitude());
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
+            } else
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
             return true;
         }
         return false;
     }
 
-//    private void echo(String message, CallbackContext callbackContext) {
-//        if (message != null && message.length() > 0) {
-//            callbackContext.success(message);
-//        } else {
-//            callbackContext.error("Expected one non-empty string argument.");
-//        }
-//    }
-
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        geoContext.success("connected");
+    public void onResume(boolean multitasking) {
+        Log.i(TAG, "onResume");
+        mLocationProvider.connect();
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-        geoContext.success("connection suspended");
+    public void onPause(boolean multitasking) {
+        Log.i(TAG, "onPause");
+        mLocationProvider.disconnect();
     }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        geoContext.success("connection failed");
+    public void handleNewLocation(Location location) {
+        Log.i(TAG, "handleNewLocation " + location.getLatitude() + " " + location.getLongitude());
+        mLastLocation = location;
     }
 }
