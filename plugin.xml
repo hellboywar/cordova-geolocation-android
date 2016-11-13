@@ -52,6 +52,7 @@
         <framework src="com.google.android.gms:play-services:9.2.0"/>
 
         <source-file src="src/android/Geolocation.java" target-dir="src/org/flexites/plugin/"/>
+        <source-file src="src/android/LocationProvider.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
 
 </plugin>
