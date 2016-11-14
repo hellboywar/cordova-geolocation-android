@@ -56,7 +56,7 @@
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-            <meta-data android:name="com.google.android.geo.API_KEY" android:value="$SENDER_ID" />
+            <meta-data android:name="com.google.android.geo.API_KEY" android:value="$GOOGLE_API_KEY" />
         </config-file>
 
         <framework src="com.google.android.gms:play-services-location:9.4.0"/>
