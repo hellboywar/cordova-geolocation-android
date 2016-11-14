@@ -62,6 +62,7 @@
         <framework src="com.google.android.gms:play-services-location:9.4.0"/>
 
         <source-file src="src/android/GoogleGPSLocation.java" target-dir="src/org/flexites/plugin/"/>
+        <source-file src="src/android/LocationListener.java" target-dir="src/org/flexites/plugin/"/>
         <source-file src="src/android/LocationProvider.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
 </plugin>

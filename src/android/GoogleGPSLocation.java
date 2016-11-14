@@ -66,10 +66,12 @@ public class GoogleGPSLocation extends CordovaPlugin {
             return true;
         }
 
+        /*
         if (isGPSdisabled()) {
             fail(LocationListener.POSITION_UNAVAILABLE, "GPS is disabled on this device.", callbackContext, false);
             return true;
         }
+        */
 
         if (action.equals("getLocation"))
             getLastLocation(args, callbackContext);
@@ -180,7 +182,7 @@ public class GoogleGPSLocation extends CordovaPlugin {
 
     private LocationListener getListener() {
         if (mListener == null)
-            mListener = new CordovaLocationListener(this, TAG);
+            mListener = new LocationListener(this, TAG);
         return mListener;
     }
 }
