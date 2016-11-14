@@ -137,9 +137,9 @@ public class LocationListener implements LocationProvider.LocationCallback {
     private class LocationTimeoutTask extends TimerTask {
 
         private CallbackContext mCallbackContext = null;
-        private CordovaLocationListener mListener = null;
+        private LocationListener mListener = null;
 
-        public LocationTimeoutTask(CallbackContext callbackContext, CordovaLocationListener listener) {
+        public LocationTimeoutTask(CallbackContext callbackContext, LocationListener listener) {
             mCallbackContext = callbackContext;
             mListener = listener;
         }

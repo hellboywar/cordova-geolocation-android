@@ -38,7 +38,7 @@ public class GoogleGPSLocation extends CordovaPlugin {
      * Gets the application context from cordova's main activity.
      * @return the application context
      */
-    private Context getApplicationContext() {
+    public Context getApplicationContext() {
         return this.cordova.getActivity();
     }
 
