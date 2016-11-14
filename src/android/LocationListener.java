@@ -25,8 +25,6 @@ import java.util.TimerTask;
 import org.apache.cordova.CallbackContext;
 
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
