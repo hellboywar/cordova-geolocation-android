@@ -31,28 +31,37 @@
         <engine name="cordova" version=">=3.4.0"/>
     </engines>
 
-    <asset src="www/geolocation.js" target="js/geolocation.js"/>
-
-    <js-module src="www/geolocation.js" name="geo">
-        <clobbers target="geo" />
-    </js-module>
-
     <platform name="android">
+        <js-module src="www/Coordinates.js" name="Coordinates">
+            <clobbers target="Coordinates" />
+        </js-module>
+
+        <js-module src="www/PositionError.js" name="PositionError">
+            <clobbers target="PositionError" />
+        </js-module>
+
+        <js-module src="www/Position.js" name="Position">
+            <clobbers target="Position" />
+        </js-module>
+
+        <js-module src="www/GoogleGPSLocation.js" name="GoogleGPSLocation">
+            <clobbers target="window.GoogleGPSLocation" />
+        </js-module>
 
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Geolocation">
-                <param name="android-package" value="org.flexites.plugin.Geolocation"/>
+            <feature name="GoogleGPSLocation">
+                <param name="android-package" value="org.flexites.plugin.GoogleGPSLocation"/>
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
             <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBrhDeCzIK4-ahcdN_rt6myGPf48zPn6LU" />
         </config-file>
 
-        <framework src="com.google.android.gms:play-services:9.2.0"/>
+        <framework src="com.google.android.gms:play-services-location:9.4.0"/>
 
-        <source-file src="src/android/Geolocation.java" target-dir="src/org/flexites/plugin/"/>
+        <source-file src="src/android/GoogleGPSLocation.java" target-dir="src/org/flexites/plugin/"/>
         <source-file src="src/android/LocationProvider.java" target-dir="src/org/flexites/plugin/"/>
     </platform>
-
 </plugin>
